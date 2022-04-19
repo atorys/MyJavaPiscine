@@ -1,10 +1,8 @@
 package Day01.ex00_Models;
 
-import java.util.UUID;
-
 public class User {
 
-    private final Integer   Identifier;
+    private Integer   Identifier;
     private String          Name;
     private Integer         Balance;
 
@@ -20,6 +18,7 @@ public class User {
 
     public void     setName(String name)        { this.Name = name; }
     public void     setBalance(Integer balance) { this.Balance = (balance > 0 ? balance : 0); }
+    public void     setIdentifier(Integer id)   { this.Identifier = id; }
 
     public void     displayUser() {
         System.out.printf("ID %d:\t%s\t%d$\n", this.getIdentifier(), this.getName(), this.getBalance());

@@ -20,7 +20,7 @@ public class Program {
         u2.displayUser();
         System.out.println();
 
-        Transaction salary = new Transaction(u1, u2, 30);
+        Transaction salary = new Transaction(u1, u2, -30);
         salary.display();
         u1.displayUser();
         u2.displayUser();

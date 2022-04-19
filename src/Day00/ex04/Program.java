@@ -7,7 +7,6 @@ public class Program {
     public static int       size = 10;
     public static char[]    symbols = new char[size];
     public static int[]     counts = new int[size];
-    public static String    inputStr;
 
     public static int   placeInSortedCountArray(int newCount) {
         int i = 0;
@@ -47,15 +46,15 @@ public class Program {
             for (int j = 0; j < index; j++)
                 System.out.print("#   ");
 
-            if (getPercent(index) == 10 - i) {
+            if (index < 10 && getPercent(index) == size - i) {
                 printDigit(counts[index++]);
-                while (index < 10 && index > 0 && getPercent(index - 1) == getPercent(index))
+                while (index < size && index > 0 && getPercent(index - 1) == getPercent(index))
                     printDigit(counts[index++]);
             }
             System.out.print("\n");
 
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < size; i++) {
             if (counts[i] == 0)
                 break ;
             System.out.printf("%c   ", symbols[i]);
@@ -64,9 +63,12 @@ public class Program {
 
     public static void main(String []args) {
         Scanner     in  = new Scanner(System.in);
-        inputStr    = in.nextLine();
+        String      inputStr = in.nextLine();
         char[]      charArray = inputStr.toCharArray();
         short[]     countArray = new short[65535];
+
+        if (inputStr.length() == 0)
+            System.exit(-1);
 
         for (int i = 0; i < inputStr.length(); i++)
             countArray[charArray[i]]++;

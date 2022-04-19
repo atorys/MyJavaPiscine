@@ -52,8 +52,8 @@ public class Transaction {
     }
 
     public UUID     getIdentifier()         { return this.Identifier; }
-    public User getSender()             { return this.Sender; }
-    public User getRecipient()          { return this.Recipient; }
+    public User     getSender()             { return this.Sender; }
+    public User     getRecipient()          { return this.Recipient; }
     public Integer  getTransferAmount()     { return this.TransferAmount; }
     public Category getTransferCategory()   { return this.TransferCategory; }
 

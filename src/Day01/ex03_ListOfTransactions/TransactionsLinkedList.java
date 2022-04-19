@@ -18,9 +18,6 @@ public class TransactionsLinkedList implements TransactionsList {
             prev = newPrev;
             next = newNext;
         }
-        public void display() {
-            System.out.printf("[TID: %s]%s\n", data.getIdentifier().toString(), this.next.data != null ? "<->" : "");
-        }
     }
 
 
@@ -72,11 +69,8 @@ public class TransactionsLinkedList implements TransactionsList {
     }
 
     void    display() {
-        Node curr = this.Head.next;
-        while (curr != this.Last) {
+        for (Node curr = this.Head.next; curr != this.Last; curr = curr.next)
             curr.data.display();
-            curr = curr.next;
-        }
         System.out.println();
     }
 

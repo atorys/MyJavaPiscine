@@ -13,12 +13,16 @@ public class Program {
         Transaction t2 = new Transaction(u3, u2, 2);
         Transaction t3 = new Transaction(u3, u1, 3);
 
-        System.out.printf("%s`s transaction list :\n", u3.getName());
-        u3.getTransactions().display();
-        System.out.println();
-
         System.out.printf("%s`s transaction list :\n", u1.getName());
         u1.getTransactions().display();
+        System.out.println();
+
+        System.out.printf("%s`s transaction list :\n", u2.getName());
+        u2.getTransactions().display();
+        System.out.println();
+
+        System.out.printf("%s`s transaction list :\n", u3.getName());
+        u3.getTransactions().display();
         System.out.println();
 
         try {
@@ -33,10 +37,9 @@ public class Program {
         u3.getTransactions().display();
         System.out.println();
 
-        Transaction[] tr = u3.getTransactions().toArray();
+        Transaction[] tr = u1.getTransactions().toArray();
+        System.out.printf("%s`s transactions but in array :\n", u1.getName());
         for (int i = 0; i < tr.length; i++)
             tr[i].display();
-
-        System.out.println(u3.getBalance());
     }
 }

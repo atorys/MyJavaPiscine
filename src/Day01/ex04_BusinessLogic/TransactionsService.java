@@ -1,6 +1,5 @@
 package Day01.ex04_BusinessLogic;
 
-
 import java.util.UUID;
 
 public class TransactionsService {
@@ -12,26 +11,44 @@ public class TransactionsService {
         this.Transactions = new TransactionsLinkedList();
     }
 
-    public Integer          getBalance(User user)   { return Users.getByID(user.getIdentifier()).getBalance(); }
-    public Integer          getBalance(Integer id)  { return Users.getByID(id).getBalance(); }
-    public User             getUser(Integer id)     { return Users.getByID(id); }
+    public Integer          getBalance(Integer id) throws UserNotFoundException {
+        return Users.getByID(id).getBalance();
+    }
 
     public User             addUser(User user) {
         Users.addUser(user);
         return user;
     }
-    public User     addUser(String name, Integer balance) {
+    public User             addUser(String name, Integer balance) {
         User newUser = new User(name, balance);
         Users.addUser(newUser);
         return newUser;
     }
 
-    public Transaction[]    getTransactions(User user)              { return user.getTransactions().toArray(); }
-    public Transaction[]    getTransactions(Integer id)             { return Users.getByID(id).getTransactions().toArray(); }
-    public void             removeTransaction(UUID id, User user)   { user.getTransactions().removeByID(id); }
-    public void             addTransaction(User sender, User recipient, Integer amount) throws IllegalTransactionException {
-        if (sender.getBalance() < amount)
+    public Transaction[]    getTransactions(Integer id) throws UserNotFoundException {
+        return Users.getByID(id).getTransactions().toArray();
+    }
+
+    public Transaction[]    checkValidity() {
+        TransactionsLinkedList  unpaired = new TransactionsLinkedList();
+        Transaction[]           array = Transactions.toArray();
+
+        for (int i = 0; i < array.length; i++) {
+                if (array[i].getSender().getTransactions().getByID(array[i].getIdentifier()) == null
+                    || array[i].getRecipient().getTransactions().getByID(array[i].getIdentifier()) == null)
+                    unpaired.addTransaction(array[i]);
+        }
+
+        return unpaired.toArray();
+    }
+
+    public void             removeTransaction(UUID id, Integer userID) throws UserNotFoundException, TransactionNotFoundException {
+        Users.getByID(userID).getTransactions().removeByID(id);
+    }
+
+    public void             addTransaction(Integer senderID, Integer recipientID, Integer amount) throws IllegalTransactionException {
+        if (Users.getByID(senderID).getBalance() < amount || amount < 0)
             throw new IllegalTransactionException();
-        Transactions.addTransaction(new Transaction(sender, recipient, amount));
+        Transactions.addTransaction(new Transaction(Users.getByID(senderID), Users.getByID(recipientID), amount));
     }
 }

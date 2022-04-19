@@ -9,22 +9,19 @@ public class TransactionsLinkedList implements TransactionsList {
     private int         Size;
 
     private static class   Node {
-        public Transaction data;
-        public Node            prev;
-        public Node            next;
+        public Transaction  data;
+        public Node         prev;
+        public Node         next;
 
         public Node(Transaction newTransaction, Node newPrev, Node newNext) {
             data = newTransaction;
             prev = newPrev;
             next = newNext;
         }
-        public void display() {
-            System.out.printf("[TID: %s]%s\n", data.getIdentifier().toString(), this.next.data != null ? "<->" : "");
-        }
     }
 
 
-    public                 TransactionsLinkedList() {
+    public TransactionsLinkedList() {
         this.Head = new Node(null, null, null);
         this.Last = new Node(null, null, null);
         this.Head.next = this.Last;
@@ -59,6 +56,18 @@ public class TransactionsLinkedList implements TransactionsList {
         throw new TransactionNotFoundException();
     }
 
+    public Transaction  getByID(UUID id) {
+
+        Node curr = this.Head;
+        while (curr.next != this.Last) {
+            if (curr.next.data.getIdentifier().equals(id)) {
+                return curr.next.data;
+            }
+            curr = curr.next;
+        }
+        return null;
+    }
+
     @Override
     public Transaction[]   toArray() {
         Transaction[]   array = new Transaction[this.Size];
@@ -72,11 +81,8 @@ public class TransactionsLinkedList implements TransactionsList {
     }
 
     void    display() {
-        Node curr = this.Head.next;
-        while (curr != this.Last) {
+        for (Node curr = this.Head.next; curr != this.Last; curr = curr.next)
             curr.data.display();
-            curr = curr.next;
-        }
         System.out.println();
     }
 

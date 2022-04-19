@@ -23,8 +23,8 @@ public class  Transaction {
         this.Identifier = UUID.randomUUID();
         this.Sender = sender;
         this.Recipient = recipient;
-        this.TransferAmount = amount;
-        this.TransferCategory = Category.credits;
+        this.TransferAmount = amount > 0 ? amount : -amount;
+        this.TransferCategory = amount > 0 ? Category.debits : Category.credits;
 
         makeTransaction(sender, recipient);
     }

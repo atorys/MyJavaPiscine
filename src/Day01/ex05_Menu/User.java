@@ -17,7 +17,7 @@ public class User {
     public String                   getName()           { return this.Name; }
     public Integer                  getIdentifier()     { return this.Identifier; }
     public Integer                  getBalance()        { return this.Balance; }
-    public TransactionsLinkedList getTransactions()   { return this.Transactions; }
+    public TransactionsLinkedList   getTransactions()   { return this.Transactions; }
 
     public void     setName(String name)        { this.Name = name; }
     public void     setBalance(Integer balance) { this.Balance = (balance > 0 ? balance : 0); }

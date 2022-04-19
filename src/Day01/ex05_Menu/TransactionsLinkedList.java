@@ -59,6 +59,18 @@ public class TransactionsLinkedList implements TransactionsList {
         throw new TransactionNotFoundException();
     }
 
+    public Transaction getByID(UUID id) {
+
+        TransactionsLinkedList.Node curr = this.Head;
+        while (curr.next != this.Last) {
+            if (curr.next.data.getIdentifier().equals(id)) {
+                return curr.next.data;
+            }
+            curr = curr.next;
+        }
+        return null;
+    }
+
     @Override
     public Transaction[]   toArray() {
         Transaction[]   array = new Transaction[this.Size];
