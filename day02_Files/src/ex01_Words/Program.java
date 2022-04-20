@@ -13,17 +13,18 @@ public class Program {
             System.exit(-1);
         }
         try {
+            int size = 10000000;
             FileReader file1 = new FileReader(Program.class.getResource(args[0]).getFile());
             FileReader file2 = new FileReader(Program.class.getResource(args[1]).getFile());
 
-            char[]  text1 = new char[10000], text2 = new char[10000];
+            char[]  text1 = new char[size], text2 = new char[size];
 
-            text1[file1.read(text1, 0, 10000)] = '\0';
-            text2[file2.read(text2, 0, 10000)] = '\0';
+            text1[file1.read(text1, 0, size)] = '\0';
+            text2[file2.read(text2, 0, size)] = '\0';
 
             ComparisonDictionary    comparison = new ComparisonDictionary();
             comparison.fill(text1, text2);
-            System.out.printf("Similarity = %f\n", comparison.similarity());
+            System.out.printf("Similarity = %.2f\n", comparison.similarity());
 
             FileWriter dictionary = new FileWriter("dictionary.txt");
 

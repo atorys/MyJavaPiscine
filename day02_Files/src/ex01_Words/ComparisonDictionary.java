@@ -25,7 +25,6 @@ public class ComparisonDictionary {
         String text = Arrays.toString(source).replaceAll(", ", "");
         text = text.substring(1, text.indexOf('\0'));
 
-        System.out.println(text);
         String[] buff1 = text.split(" ");
 
         for (String key : buff1) {
@@ -36,9 +35,8 @@ public class ComparisonDictionary {
         }
     }
 
-    public double similarity() {
-        double numerator = 0;
-        double denominator;
+    public float similarity() {
+        float numerator = 0, denominator;
         int a = 0, b = 0;
         for (String key : UniqueSet) {
             if (Dictionary1.containsKey(key) && Dictionary2.containsKey(key))
@@ -48,8 +46,8 @@ public class ComparisonDictionary {
             if (Dictionary2.containsKey(key))
                 b += Dictionary2.get(key) * Dictionary2.get(key);
         }
-        denominator = Math.sqrt(a) * Math.sqrt(b);
-        return (numerator / denominator);
+        denominator = (float)(Math.sqrt(a) * Math.sqrt(b));
+        return ((int)(numerator/ denominator * 100) / 100.0f);
     }
 
     public TreeSet<String> getUniqueSet() {
