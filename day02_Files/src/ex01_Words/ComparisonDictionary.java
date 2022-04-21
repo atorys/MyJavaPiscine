@@ -4,21 +4,21 @@ import java.util.*;
 
 public class ComparisonDictionary {
 
-    private TreeMap<String, Integer>    Dictionary1;
-    private TreeMap<String, Integer>    Dictionary2;
-    private TreeSet<String>             UniqueSet;
+    private TreeMap<String, Integer>    dictionaryFirst;
+    private TreeMap<String, Integer>    dictionarySecond;
+    private TreeSet<String>             uniqueSet;
 
     public ComparisonDictionary() {
-        Dictionary1 = new TreeMap<>();
-        Dictionary2 = new TreeMap<>();
-        UniqueSet = new TreeSet<>();
+        dictionaryFirst = new TreeMap<>();
+        dictionarySecond = new TreeMap<>();
+        uniqueSet = new TreeSet<>();
     }
 
     public void fill(char[] source1, char[] source2) {
-        fillDictionary(Dictionary1, source1);
-        fillDictionary(Dictionary2, source2);
-        UniqueSet.addAll(Dictionary1.keySet());
-        UniqueSet.addAll(Dictionary2.keySet());
+        fillDictionary(dictionaryFirst, source1);
+        fillDictionary(dictionarySecond, source2);
+        uniqueSet.addAll(dictionaryFirst.keySet());
+        uniqueSet.addAll(dictionarySecond.keySet());
     }
 
     private void fillDictionary(TreeMap<String, Integer> dict, char[] source) {
@@ -38,19 +38,19 @@ public class ComparisonDictionary {
     public float similarity() {
         float numerator = 0, denominator;
         int a = 0, b = 0;
-        for (String key : UniqueSet) {
-            if (Dictionary1.containsKey(key) && Dictionary2.containsKey(key))
-                numerator += Dictionary1.get(key) * Dictionary2.get(key);
-            if (Dictionary1.containsKey(key))
-                a += Dictionary1.get(key) * Dictionary1.get(key);
-            if (Dictionary2.containsKey(key))
-                b += Dictionary2.get(key) * Dictionary2.get(key);
+        for (String key : uniqueSet) {
+            if (dictionaryFirst.containsKey(key) && dictionarySecond.containsKey(key))
+                numerator += dictionaryFirst.get(key) * dictionarySecond.get(key);
+            if (dictionaryFirst.containsKey(key))
+                a += dictionaryFirst.get(key) * dictionaryFirst.get(key);
+            if (dictionarySecond.containsKey(key))
+                b += dictionarySecond.get(key) * dictionarySecond.get(key);
         }
         denominator = (float)(Math.sqrt(a) * Math.sqrt(b));
         return ((int)(numerator/ denominator * 100) / 100.0f);
     }
 
-    public TreeSet<String> getUniqueSet() {
-        return UniqueSet;
+    public TreeSet<String> getuniqueSet() {
+        return uniqueSet;
     }
 }

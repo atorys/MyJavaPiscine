@@ -30,7 +30,7 @@ public class Program {
 
             FileWriter dictionary = new FileWriter("dictionary.txt");
 
-            TreeSet<String> keys = comparison.getUniqueSet();
+            TreeSet<String> keys = comparison.getuniqueSet();
             for (String key: keys) {
                 dictionary.write(key);
                 if (!key.equals(keys.last()))
