@@ -19,8 +19,10 @@ public class Program {
 
             char[]  text1 = new char[size], text2 = new char[size];
 
-            text1[file1.read(text1, 0, size)] = '\0';
-            text2[file2.read(text2, 0, size)] = '\0';
+            if (file1.ready())
+                text1[file1.read(text1, 0, size)] = '\0';
+            if (file2.ready())
+                text2[file2.read(text2, 0, size)] = '\0';
 
             ComparisonDictionary    comparison = new ComparisonDictionary();
             comparison.fill(text1, text2);

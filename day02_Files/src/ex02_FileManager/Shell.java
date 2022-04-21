@@ -1,70 +1,81 @@
 package ex02_FileManager;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
+import static java.nio.file.StandardCopyOption.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Shell {
 
-    private final Path  _start_path;
-    private Path        _current_path;
+    private String  _current_path;
 
-    public Shell(Path path) {
-        _start_path = path;
-        _current_path = _start_path;
+    public Shell(String path) {
+        _current_path = path;
+        if (!_current_path.endsWith("/"))
+            _current_path += "/";
     }
 
     public void mv(String what, String where) {
-        Path path = Paths.get(where);
-        File file = new File(what);
-//        if (Files.isDirectory(path) && Files.isWritable(path)) {
-//            try {
-//                File p = new File(where);
-//                Files.move(Paths.get(file.getAbsolutePath()), Paths.get(p.getAbsolutePath()));
-//            } catch (IOException e) {
-//                System.err.println(e.getMessage());
-//            }
-//        }
-//        else {
-//            if (!file.renameTo(new File(where)))
-//                System.err.println("Unable to rename");
-//        }
+        String path;
+        String file = what;
+
+        if (!where.endsWith("/"))
+            where += "/";
+
+        if ((Paths.get(what).isAbsolute() && Files.notExists(Paths.get(what)))
+                || (!Paths.get(what).isAbsolute() && Files.notExists(Paths.get(_current_path + what)))) {
+            System.err.println("No such file or directory");
+            return;
+        }
+        else if (!Paths.get(what).isAbsolute())
+            file = _current_path + what;
+
+        if (Files.exists(Paths.get(_current_path + where)) && Files.isDirectory(Paths.get(_current_path + where))
+                && Paths.get(_current_path + where).isAbsolute())
+            path = _current_path + where + Paths.get(what).getFileName().toString();
+        else if (Paths.get(where).isAbsolute())
+            path = where + Paths.get(what).getFileName().toString();
+        else
+            path = _current_path + where;
+
+        try {
+            Files.move(Paths.get(file), Paths.get(path), REPLACE_EXISTING);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void ls() {
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(_current_path)) {
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(_current_path))) {
             for (Path path : stream) {
                 if (!Files.isHidden(path))
-                System.out.println(path.getFileName().toString() + "\t" + path.toFile().length() + "KB");
-
+                    System.out.println(path.getFileName().toString() + " " + path.toFile().length() + "KB");
             }
         }
         catch (IOException e) {
             System.err.println(e.getMessage());
+            System.exit(-1);
         }
     }
 
     public void cd(String folder_name) {
         Path path = Paths.get(folder_name);
         if (path.isAbsolute() && Files.isDirectory(path) && Files.isReadable(path))
-            _current_path = path;
+            _current_path = folder_name;
         else {
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream(_current_path)) {
-                for (Path inner_paths : stream) {
-//                    if (inner_paths.equals(path) && Files.isDirectory(inner_paths))
-//                        _current_path = path;
-                    if (inner_paths.equals(path))
-                        _current_path = path;
-                }
-            }
-            catch (IOException e) {
-                System.err.println(e.getMessage());
+            String new_path = _current_path + folder_name;
+            if (Files.exists(Paths.get(new_path)) &&  Files.isDirectory(Paths.get(new_path)) &&  Files.isReadable(Paths.get(new_path)))
+                _current_path += folder_name;
+            else {
+                System.err.println("No such directory");
+                return;
             }
         }
-//        _current_path = _current_path.normalize();
+        _current_path = Paths.get(_current_path).normalize().toString();
+        if (!_current_path.endsWith("/"))
+            _current_path += "/";
         System.out.println(_current_path);
     }
 }

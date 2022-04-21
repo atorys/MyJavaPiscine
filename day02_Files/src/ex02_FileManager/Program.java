@@ -17,17 +17,19 @@ public class Program {
                 System.err.printf("Unexpected argument: %s\n", args[0]);
                 System.exit(-1);
             }
-            Path path = Paths.get(args[0].substring(args[0].indexOf("=") + 1));
+            String start_path = args[0].substring(args[0].indexOf("=") + 1);
+            Path path = Paths.get(start_path);
             if (!path.isAbsolute() || !Files.isDirectory(path) || !Files.isReadable(path)){
                 System.err.printf("Invalid absolute path: %s\n", path);
                 System.exit(-1);
             }
 
-            Shell       shell = new Shell(path);
+            Shell       shell = new Shell(start_path);
             Scanner     in = new Scanner(System.in);
             String      command;
             String[]    arguments;
 
+            System.out.println(start_path);
             for (;;) {
                 command = in.nextLine();
                 if (command.isEmpty())
@@ -54,6 +56,9 @@ public class Program {
                         }
                         shell.cd(arguments[1]);
                         break;
+                    }
+                    case ("exit"): {
+                        System.exit(0);
                     }
                     default: System.err.println("available commands : cd, ls, mv");
                 }
