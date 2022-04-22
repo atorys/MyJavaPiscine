@@ -34,7 +34,7 @@ public class Program {
 
     public static boolean isValidArguments(String[] args) {
         if (args.length != 1 || !args[0].startsWith("--count") || !args[0].contains("=")) {
-            System.out.println("Invalid argument");
+            System.out.println("Invalid argument --count=?");
             return false;
         }
         try {
