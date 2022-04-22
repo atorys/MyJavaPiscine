@@ -6,19 +6,19 @@ public class Program {
 
     public static void isPrime(int digit) {
         boolean answer;
-        int     steps = 0, i = 2;
+        int     STEPS = 0, i = 2;
 
         while (digit % i != 0 && i*i <= digit) {
-            steps++;
+            STEPS++;
             i++;
         }
 
         answer = digit % i != 0;
-        steps++;
+        STEPS++;
 
         System.out.print(answer);
         System.out.print(' ');
-        System.out.println(steps);
+        System.out.println(STEPS);
     }
 
     public static void main(String []args) {
