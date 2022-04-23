@@ -28,7 +28,7 @@ public class Program {
 
     public static boolean isValidArguments(String[] args) {
         if (args.length != 2 || args[0].length() != 1 || args[1].length() != 1) {
-            System.err.println("Invalid arguments: WHITE BLACK IMAGE");
+            System.err.println("Invalid arguments: WHITE BLACK");
             return false;
         }
         try {
