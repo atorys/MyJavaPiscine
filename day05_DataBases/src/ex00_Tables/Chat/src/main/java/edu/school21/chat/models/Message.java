@@ -1,4 +1,4 @@
-package edu.school21.chat;
+package edu.school21.chat.models;
 
 import java.util.Date;
 import java.util.UUID;
