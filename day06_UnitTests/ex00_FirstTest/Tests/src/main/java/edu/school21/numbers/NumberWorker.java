@@ -4,7 +4,7 @@ public class NumberWorker {
 
     public boolean isPrime(int number) throws IllegalNumberException {
         if (number <= 1)
-            throw new IllegalNumberException();
+            throw new IllegalNumberException("Illegal number");
         for (int i = 2; i*i <= number ; i++)
             if (number % i == 0)
                 return false;
