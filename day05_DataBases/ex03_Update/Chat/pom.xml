@@ -38,16 +38,34 @@
     <build>
         <plugins>
             <plugin>
-                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                    <excludeTransitive>false</excludeTransitive>
+                    <stripVersion>false</stripVersion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Add LIB folder to classPath -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.2</version>
+                <version>2.4</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>target/classes/</classpathPrefix>
-                            <mainClass>edu.school21.chat.app.Program</mainClass>
+                            <classpathPrefix>target/lib</classpathPrefix>
+                            <mainClass>edu.school21.chat.app.Program</mainClass>-->
                         </manifest>
                     </archive>
                 </configuration>
