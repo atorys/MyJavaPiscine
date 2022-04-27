@@ -1,5 +1,6 @@
 package edu.school21.repositories;
 
+import edu.school21.models.Product;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,12 +9,11 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.HSQL;
 
-import edu.school21.models.Product;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
 
 
 public class ProductsReposutoryJdbcImplTest {
@@ -30,7 +30,7 @@ public class ProductsReposutoryJdbcImplTest {
     final Product EXPECTED_SAVE_PRODUCT = new Product(5L, "mayo", 300);
 
     @BeforeEach
-    void init() throws SQLException {
+    void init() {
         database = new EmbeddedDatabaseBuilder()
                 .setName("My Test DB")
                 .setType(HSQL)

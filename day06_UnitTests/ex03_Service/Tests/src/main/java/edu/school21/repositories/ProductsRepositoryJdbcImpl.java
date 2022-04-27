@@ -1,11 +1,10 @@
 package edu.school21.repositories;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import javax.sql.DataSource;
 import edu.school21.models.Product;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository {
     final String SAVE_QUERY = "INSERT INTO products (name, price) VALUES (?, ?)";
     final String DELETE_QUERY = "DELETE FROM products WHERE identifier = ?";
 
-    public ProductsRepositoryJdbcImpl(DataSource dataSource) throws SQLException {
+    public ProductsRepositoryJdbcImpl(DataSource dataSource) {
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
 

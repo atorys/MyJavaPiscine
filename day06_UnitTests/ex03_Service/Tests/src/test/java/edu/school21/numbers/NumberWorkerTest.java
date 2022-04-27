@@ -1,5 +1,6 @@
 package edu.school21.numbers;
 
+import edu.school21.exceptions.IllegalNumberException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
