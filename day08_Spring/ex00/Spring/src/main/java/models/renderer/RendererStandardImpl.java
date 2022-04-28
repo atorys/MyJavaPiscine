@@ -1,6 +1,6 @@
-package school21.spring.models.renderer;
+package models.renderer;
 
-import school21.spring.models.preprocessor.PreProcessor;
+import models.preprocessor.PreProcessor;
 
 public class RendererStandardImpl implements Renderer {
 
@@ -8,5 +8,8 @@ public class RendererStandardImpl implements Renderer {
 
     public RendererStandardImpl(PreProcessor preProcessor) {
         this.preProcessor = preProcessor;
+    }
+    public void print(String message) {
+        System.err.println(preProcessor.handleCase(message));
     }
 }

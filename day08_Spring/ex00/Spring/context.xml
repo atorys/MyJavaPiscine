@@ -3,16 +3,37 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id = "PrinterWithDateTimeImpl" class = "school21.spring.models.printer.PrinterWithDateTimeImpl">
-        <constructor-arg ref="Renderer"/>
-        <property name="Renderer" ref="Renderer" />
 
+    <bean id = "preProcessor" class="models.preprocessor.PreProcessor" abstract="true">
     </bean>
+        <bean id = "preProcessorToLowerImpl" class="models.preprocessor.PreProcessorToLowerImpl">
+        </bean>
 
-    <bean id = "PrinterWithPrefixImpl" class = "school21.spring.models.printer.PrinterWithPrefixImpl">
-        <constructor-arg ref="Renderer"/>
-        <property name="Renderer" ref="Renderer" />
+        <bean id = "preProcessorToUpperImpl" class="models.preprocessor.PreProcessorToUpperImpl">
+        </bean>
 
+
+    <bean id = "renderer" class="models.renderer.Renderer" abstract="true">
     </bean>
+        <bean id = "rendererErrImpl" class="models.renderer.RendererErrImpl">
+            <constructor-arg name="preProcessor" ref="preProcessorToUpperImpl"/>
+        </bean>
+
+        <bean id = "rendererStandardImpl" class="models.renderer.RendererStandardImpl">
+        </bean>
+
+
+    <bean id = "printer" class="models.printer.Printer" abstract="true">
+    </bean>
+        <bean id ="printerWithDateTimeImpl" class ="models.printer.PrinterWithDateTimeImpl">
+            <constructor-arg name="renderer" ref="rendererErrImpl"/>
+        </bean>
+
+        <bean id ="printerWithPrefixImpl" class ="models.printer.PrinterWithPrefixImpl">
+        </bean>
+
+
+
+
 
 </beans>

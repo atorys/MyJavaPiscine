@@ -1,4 +1,4 @@
-package school21.spring.models.preprocessor;
+package models.preprocessor;
 
 import java.util.Locale;
 

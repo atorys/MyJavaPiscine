@@ -1,6 +1,6 @@
-package school21.spring.models.printer;
+package models.printer;
 
-import school21.spring.models.renderer.Renderer;
+import models.renderer.Renderer;
 
 public class PrinterWithPrefixImpl implements Printer {
 
@@ -14,8 +14,7 @@ public class PrinterWithPrefixImpl implements Printer {
         this.prefix = prefix;
     }
 
-    @Override
     public void print(String message) {
-
+        renderer.print(prefix + message);
     }
 }

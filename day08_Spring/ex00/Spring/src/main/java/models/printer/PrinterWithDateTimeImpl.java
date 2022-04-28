@@ -1,6 +1,8 @@
-package school21.spring.models.printer;
+package models.printer;
 
-import school21.spring.models.renderer.Renderer;
+import models.renderer.Renderer;
+
+import java.time.LocalDateTime;
 
 public class PrinterWithDateTimeImpl implements Printer {
 
@@ -10,8 +12,7 @@ public class PrinterWithDateTimeImpl implements Printer {
         this.renderer = renderer;
     }
 
-    @Override
-    public void print(String message) {
-
+    public void print(LocalDateTime message) {
+        renderer.print(message.toString());
     }
 }
