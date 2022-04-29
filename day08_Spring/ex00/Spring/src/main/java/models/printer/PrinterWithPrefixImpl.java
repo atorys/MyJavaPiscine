@@ -15,6 +15,6 @@ public class PrinterWithPrefixImpl implements Printer {
     }
 
     public void print(String message) {
-        renderer.print(prefix + message);
+        renderer.print(prefix + ' ' + message);
     }
 }

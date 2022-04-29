@@ -15,25 +15,33 @@
 
     <bean id = "renderer" class="models.renderer.Renderer" abstract="true">
     </bean>
-        <bean id = "rendererErrImpl" class="models.renderer.RendererErrImpl">
+        <bean id = "rendererErrImpl_preProcToUpper" class="models.renderer.RendererErrImpl">
             <constructor-arg name="preProcessor" ref="preProcessorToUpperImpl"/>
         </bean>
 
-        <bean id = "rendererStandardImpl" class="models.renderer.RendererStandardImpl">
+        <bean id = "rendererErrImpl_preProcToLower" class="models.renderer.RendererErrImpl">
+            <constructor-arg name="preProcessor" ref="preProcessorToLowerImpl"/>
+        </bean>
+
+        <bean id = "rendererStandardImpl_preProcToUpper" class="models.renderer.RendererStandardImpl">
+            <constructor-arg name="preProcessor" ref="preProcessorToUpperImpl"/>
+        </bean>
+
+
+        <bean id = "rendererStandardImpl_preProcToLower" class="models.renderer.RendererStandardImpl">
+            <constructor-arg name="preProcessor" ref="preProcessorToLowerImpl"/>
         </bean>
 
 
     <bean id = "printer" class="models.printer.Printer" abstract="true">
     </bean>
         <bean id ="printerWithDateTimeImpl" class ="models.printer.PrinterWithDateTimeImpl">
-            <constructor-arg name="renderer" ref="rendererErrImpl"/>
+            <constructor-arg name="renderer" ref="rendererStandardImpl_preProcToUpper"/>
         </bean>
 
         <bean id ="printerWithPrefixImpl" class ="models.printer.PrinterWithPrefixImpl">
+            <constructor-arg name="renderer" ref="rendererStandardImpl_preProcToUpper"/>
+            <property name="prefix" value="prefix"/>
         </bean>
-
-
-
-
 
 </beans>
