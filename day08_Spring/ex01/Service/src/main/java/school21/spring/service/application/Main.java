@@ -23,6 +23,10 @@ public class Main {
         System.out.println(usersRepository.findByEmail("hdfe@student.21-school.ru") );
         System.out.println(usersRepository.findByEmail("atory@student.21-school.ru") );
         System.out.println(usersRepository.findById(3L));
+        System.out.println();
 
+        User user = new User(999L, "new_email.ru");
+        usersRepository.save(user);
+        System.out.println(usersRepository.findByEmail(user.getEmail()));
     }
 }

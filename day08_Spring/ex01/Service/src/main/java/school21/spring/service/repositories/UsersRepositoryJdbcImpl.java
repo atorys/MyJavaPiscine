@@ -2,7 +2,6 @@ package school21.spring.service.repositories;
 
 import school21.spring.service.models.User;
 
-
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.Optional;
 
 public class UsersRepositoryJdbcImpl implements UsersRepository {
 
-    private final java.sql.Connection connection;
+    private final Connection connection;
     final String UPDATE_QUERY = "UPDATE Service.users SET email = ? WHERE id = ?";
     final String FIND_ID_QUERY = "SELECT * FROM Service.users WHERE id = ";
     final String FIND_ALL_QUERY = "SELECT * FROM Service.users";
@@ -57,6 +56,8 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
             statement.setLong(1, entity.getId());
             statement.setString(2, entity.getEmail());
             statement.execute();
+            Optional<User> user = findByEmail(entity.getEmail());
+            user.ifPresent(value -> entity.setId(value.getId()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
