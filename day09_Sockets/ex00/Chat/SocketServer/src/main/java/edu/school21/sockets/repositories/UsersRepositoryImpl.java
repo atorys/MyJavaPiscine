@@ -1,7 +1,9 @@
 package edu.school21.sockets.repositories;
 
+import com.zaxxer.hikari.HikariDataSource;
 import edu.school21.sockets.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,7 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Component("usersRepository")
 public class UsersRepositoryImpl implements UsersRepository {
 
     private final JdbcTemplate jdbcTemplateObject;
@@ -25,7 +27,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     final String DELETE_QUERY = "DELETE FROM Service.users WHERE id = ?";
 
     @Autowired
-    public UsersRepositoryImpl(DataSource dataSource) {
+    public UsersRepositoryImpl(HikariDataSource dataSource) {
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
 
